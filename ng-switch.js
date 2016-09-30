@@ -1,8 +1,3 @@
-
-//当有多个开关指令绑定同一个model时, 用于保存点击事件触发的指令scope
-//在watch中排除掉, 不触发UI的change (不然会引发重复触发的错误逻辑)
-var currentTargetScope;
-
 angular.module('gm.switch', [])
     .directive('switch', function(){
         return {
