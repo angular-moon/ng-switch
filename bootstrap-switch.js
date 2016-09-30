@@ -145,8 +145,11 @@ define(['jquery'], function($){
                                     $this.unbind('click');
                                 else {
                                     $this.on('mousemove touchmove', function (e) {
-                                        var $element = $(this).closest('.switch')
-                                            , relativeX = (e.pageX || e.originalEvent.targetTouches[0].pageX) - $element.offset().left
+
+                                        var $element = $(this).closest('.switch');
+                                        if(!$element || !$element.offset())
+                                            return;
+                                        var relativeX = (e.pageX || e.originalEvent.targetTouches[0].pageX) - $element.offset().left
                                             , percent = (relativeX / $element.width()) * 100
                                             , left = 25
                                             , right = 75;
@@ -175,6 +178,11 @@ define(['jquery'], function($){
                                             $myCheckBox.prop('checked', !(parseInt($this.parent().css('left')) < -25));
                                         else $myCheckBox.prop("checked", !$myCheckBox.is(":checked"));
 
+                                        /*change model*/
+                                        $myCheckBox.scope().$apply(function(){
+                                            $myCheckBox.scope()['switch'] = $myCheckBox.prop("checked");
+                                        });
+
                                         moving = false;
                                         $myCheckBox.trigger('change');
                                     });
@@ -190,6 +198,11 @@ define(['jquery'], function($){
                                         $this.trigger('mouseup');
 
                                         $myCheckBox.prop('checked', !(parseInt($this.parent().css('left')) < -25)).trigger('change');
+
+                                        /*change model*/
+                                        $myCheckBox.scope().$apply(function(){
+                                            $myCheckBox.scope()['switch'] = $myCheckBox.prop("checked");
+                                        });
                                     });
 
                                     $this.on('mouseup', function (e) {

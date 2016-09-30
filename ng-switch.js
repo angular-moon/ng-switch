@@ -7,7 +7,7 @@ angular.module('gm.switch', [])
     .directive('switch', function(){
         return {
             restrict: 'EA',
-            template: "<div class=\"switch\"/><input type=\"checkbox\" data-toggle=\"switch\"/></div>",
+            template: "<div class=\"switch\"/><input type=\"checkbox\"/></div>",
             scope: {
                 'switch': "="
             },
@@ -19,26 +19,11 @@ angular.module('gm.switch', [])
                 //设置初始状态
                 element.bootstrapSwitch('setState', scope['switch']);
 
-                //绑定点击事件, 修改model值
-                element.find('label').on('click', function(){
-
-                    //保存当前触发点击事件的指令scope
-                    currentTargetScope = scope;
-
-                    scope.$apply(function(){
-                        scope['switch'] = !scope['switch'];
-                    });
-                });
-
                 //监测model的变化,刷新UI
                 scope.$watch('switch', function(newValue, oldValue){
 
-                    //初始化和自己触发的model改变不刷新UI
-                    if(newValue !== oldValue && currentTargetScope !== scope)
+                    if(newValue !== oldValue)
                         element.bootstrapSwitch('setState', newValue);
-
-                    //清空currentTargetScope, 避免外部修改model值时不能刷新UI
-                    currentTargetScope = null;
                 });
 
             }
