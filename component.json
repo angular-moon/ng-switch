@@ -4,12 +4,11 @@
     "name": "ng-switch",
     "main": "ng-switch.js",
     "dependencies": [
-        "css",
         "angular"
     ],
     "shim": {
         "ng-switch.js": {
-            "deps": ["angular", "css!ng-switch.css", "bootstrap-switch.js"],
+            "deps": ["angular", "ng-switch.css", "bootstrap-switch.js"],
             "exports": "'gm.switch'"
         }
     }
